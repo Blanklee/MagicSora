@@ -11,11 +11,11 @@ uses
   FMX.TabControl;
 
 const
-  MAX = 100;
+  CLMAX = 100;
 
 type
   TMainForm = class(TForm)
-    Label1: TLabel;
+    LabelTitle: TLabel;
     RunButton: TButton;
     StopButton: TButton;
     ConfigButton: TButton;
@@ -24,10 +24,11 @@ type
     BallImageList1: TImageList;
     IdTCPClient1: TIdTCPClient;
     Timer1: TTimer;
-    Layout1: TLayout;
+    MainLayout1: TLayout;
     TabControl1: TTabControl;
     TabItem_Main: TTabItem;
     TabItem_Config: TTabItem;
+    VertScrollBox1: TVertScrollBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -37,12 +38,20 @@ type
     procedure ExitButtonClick(Sender: TObject);
     procedure ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormFocusChanged(Sender: TObject);
+    procedure FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardShown(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure VertScrollBox1CalcContentBounds(Sender: TObject; var ContentBounds: TRectF);
   private
     { Private declarations }
     FCount: integer;
-    cl: array[0..MAX] of TClient;
+    cl: array[0..CLMAX] of TClient;
+    FKBVisible: boolean;
+    FKBBounds: TRectF;
+    FNeedOffset: boolean;
     procedure LoadFromIniFile;
-    // procedure SaveToIniFile;
+    procedure _RestorePosition;
+    procedure _UpdateKBBounds;
   public
     { Public declarations }
     procedure GotoMainTab(Save: integer);
@@ -55,12 +64,15 @@ implementation
 
 {$R *.fmx}
 
-uses ConfigForm1, System.IniFiles;
+uses System.Math, System.IniFiles, ConfigForm1;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
+  // 변수 초기화
+  FKBVisible:= false;
+
   // 첫번째탭(Main) 띄우고, 탭은 숨긴다
   TabControl1.ActiveTab:= TabItem_Main;
   TabControl1.TabPosition:= TTabPosition.None;
@@ -70,14 +82,14 @@ begin
   ConfigForm.Layout1.Parent:= TabItem_Config;
 
   // Client 생성
-  for i:= 0 to MAX do cl[i]:= TClient.Create;
+  for i:= 0 to CLMAX do cl[i]:= TClient.Create;
 
   // ini 파일로부터 Socket 초기화 (ini 파일은 ConfigForm.Create 통해 항상 존재함)
   LoadFromIniFile;
 
   {
   // Client 생성 : item 생성도 LoadFromIniFile에서 수행됨
-  for i:= 0 to MAX do
+  for i:= 0 to CLMAX do
   begin
     cl[i]:= TClient.Create;
     item:= ListView1.Items.Add;
@@ -124,7 +136,7 @@ var
 begin
   Timer1.Enabled:= False;
   ListView1.Items.Clear;
-  for i:= 0 to MAX do cl[i].Free;
+  for i:= 0 to CLMAX do cl[i].Free;
   ConfigForm.Free;
 end;
 
@@ -134,6 +146,9 @@ begin
   if (Key = vkHardwareBack)
   // 또는 Windows에서는 Ctrl-Shift-Left를 누르면 (디버그용)
   or ((Key = vkLeft) and (ssCtrl in Shift)) then
+
+  // 가상 키보드가 보여지고 있다면 키보드 숨기는 일을 자동으로 하므로 그냥 냅둔다
+  if not FKBVisible then
 
   // Config 화면이라면
   if (TabControl1.ActiveTab = TabItem_Config) then
@@ -227,22 +242,6 @@ begin
   end;
 end;
 
-{
-procedure TMainForm.SaveToIniFile;
-var
-  IniFile: TIniFile;
-begin
-  // Ini 파일로 저장한다
-  IniFile:= TIniFile.Create(IniFileName);
-  try
-    // IniFile.WriteString('Options', 'Server', edServer.Text);
-    // IniFile.WriteString('Options', 'MyNumber', edMyNumber.Text);
-  finally
-    IniFile.Free;
-  end;
-end;
-}
-
 procedure TMainForm.ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
 begin
   // 각 Item의 Button을 Click할 경우 해당 Port만 Check한다
@@ -318,6 +317,86 @@ begin
         Close;
       end;
     end);
+end;
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------------
+// 여기서부터: 가상키보드가 Edit 가리지 않게 하기위한 것
+// --------------------------------------------------------------------
+
+procedure TMainForm.FormFocusChanged(Sender: TObject);
+begin
+  _UpdateKBBounds;
+end;
+
+procedure TMainForm.FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  FKBVisible:= false;
+
+  // 가상키보드가 Edit 가리지 않게 하기위한 것
+  FKBBounds.Create(0, 0, 0, 0);
+  FNeedOffset:= False;
+  _RestorePosition;
+end;
+
+procedure TMainForm.FormVirtualKeyboardShown(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  FKBVisible:= true;
+
+  // 가상키보드가 Edit 가리지 않게 하기위한 것
+  FKBBounds:= TRectF.Create(Bounds);
+  FKBBounds.TopLeft:= ScreenToClient(FKBBounds.TopLeft);
+  FKBBounds.BottomRight:= ScreenToClient(FKBBounds.BottomRight);
+  _UpdateKBBounds;
+end;
+
+procedure TMainForm.VertScrollBox1CalcContentBounds(Sender: TObject; var ContentBounds: TRectF);
+begin
+  // 가상키보드가 Edit 가리지 않게 하기위한 것
+  if FNeedOffset and (FKBBounds.Top > 0) then
+  begin
+    ContentBounds.Bottom:= System.Math.Max(ContentBounds.Bottom, 2 * ClientHeight - FKBBounds.Top);
+  end;
+end;
+
+procedure TMainForm._RestorePosition;
+begin
+  // 가상키보드가 Edit 가리지 않게 하기위한 것
+  VertScrollBox1.ViewportPosition:= PointF(VertScrollBox1.ViewportPosition.X, 0);
+  MainLayout1.Align := TAlignLayout.Client;
+  VertScrollBox1.RealignContent;
+end;
+
+procedure TMainForm._UpdateKBBounds;
+var
+  LFocused: TControl;
+  LFocusRect: TRectF;
+begin
+  // 가상키보드가 Edit 가리지 않게 하기위한 것
+  FNeedOffset:= False;
+  if Assigned(Focused) then
+  begin
+    LFocused:= TControl(Focused.GetObject);
+    LFocusRect:= LFocused.AbsoluteRect;
+    LFocusRect.Offset(VertScrollBox1.ViewportPosition);
+    if (LFocusRect.IntersectsWith(TRectF.Create(FKBBounds))) and (LFocusRect.Bottom > FKBBounds.Top) then
+    begin
+      FNeedOffset:= True;
+      MainLayout1.Align:= TAlignLayout.Horizontal;
+      VertScrollBox1.RealignContent;
+      Application.ProcessMessages;
+      VertScrollBox1.ViewportPosition:= PointF(VertScrollBox1.ViewportPosition.X, LFocusRect.Bottom - FKBBounds.Top);
+    end;
+  end;
+  if not FNeedOffset then _RestorePosition;
 end;
 
 end.

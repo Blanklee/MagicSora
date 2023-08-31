@@ -10,114 +10,127 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
   DesignerMasterStyle = 3
-  object Label1: TLabel
-    Align = Top
-    StyledSettings = [Family, Size, FontColor]
-    Size.Width = 765.000000000000000000
-    Size.Height = 41.000000000000000000
-    Size.PlatformDefault = False
-    TextSettings.Font.Style = [fsBold]
-    TextSettings.HorzAlign = Center
-    Text = #47588#51649#49548#46972' v1.2'
-  end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
     Left = 560
     Top = 112
   end
-  object Layout1: TLayout
+  object VertScrollBox1: TVertScrollBox
     Align = Client
     Size.Width = 765.000000000000000000
-    Size.Height = 584.000000000000000000
+    Size.Height = 625.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 3
-    object TabControl1: TTabControl
+    TabOrder = 0
+    OnCalcContentBounds = VertScrollBox1CalcContentBounds
+    Viewport.Width = 765.000000000000000000
+    Viewport.Height = 625.000000000000000000
+    object MainLayout1: TLayout
       Align = Client
-      FullSize = True
       Size.Width = 765.000000000000000000
-      Size.Height = 584.000000000000000000
+      Size.Height = 625.000000000000000000
       Size.PlatformDefault = False
-      TabHeight = 49.000000000000000000
-      TabIndex = 0
       TabOrder = 0
-      TabPosition = Bottom
-      object TabItem_Main: TTabItem
-        CustomIcon = <
-          item
-          end>
-        IsSelected = True
-        Size.Width = 383.000000000000000000
-        Size.Height = 49.000000000000000000
+      object TabControl1: TTabControl
+        Align = Client
+        FullSize = True
+        Size.Width = 765.000000000000000000
+        Size.Height = 584.000000000000000000
         Size.PlatformDefault = False
+        TabHeight = 49.000000000000000000
+        TabIndex = 0
         TabOrder = 0
-        Text = 'Main'
-        object ListView1: TListView
-          ItemAppearanceClassName = 'TImageListItemBottomDetailRightButtonAppearance'
-          ItemEditAppearanceClassName = 'TImageListItemBottomDetailRightButtonShowCheckAppearance'
-          HeaderAppearanceClassName = 'TListHeaderObjects'
-          FooterAppearanceClassName = 'TListHeaderObjects'
-          Images = BallImageList1
-          Align = Client
-          Margins.Left = 136.000000000000000000
-          Size.Width = 629.000000000000000000
-          Size.Height = 535.000000000000000000
+        TabPosition = Bottom
+        object TabItem_Main: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 383.000000000000000000
+          Size.Height = 49.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
-          OnButtonClick = ListView1ButtonClick
+          Text = 'Main'
+          object ListView1: TListView
+            ItemAppearanceClassName = 'TImageListItemBottomDetailRightButtonAppearance'
+            ItemEditAppearanceClassName = 'TImageListItemBottomDetailRightButtonShowCheckAppearance'
+            HeaderAppearanceClassName = 'TListHeaderObjects'
+            FooterAppearanceClassName = 'TListHeaderObjects'
+            Images = BallImageList1
+            Align = Client
+            Margins.Left = 136.000000000000000000
+            Size.Width = 629.000000000000000000
+            Size.Height = 535.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 4
+            OnButtonClick = ListView1ButtonClick
+          end
+          object RunButton: TButton
+            Position.X = 16.000000000000000000
+            Position.Y = 13.000000000000000000
+            Size.Width = 105.000000000000000000
+            Size.Height = 44.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Text = 'Run'
+            OnClick = RunButtonClick
+          end
+          object StopButton: TButton
+            Position.X = 16.000000000000000000
+            Position.Y = 61.000000000000000000
+            Size.Width = 105.000000000000000000
+            Size.Height = 44.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            Text = 'Stop'
+            OnClick = StopButtonClick
+          end
+          object ConfigButton: TButton
+            Position.X = 16.000000000000000000
+            Position.Y = 109.000000000000000000
+            Size.Width = 105.000000000000000000
+            Size.Height = 44.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 2
+            Text = 'Config'
+            OnClick = ConfigButtonClick
+          end
+          object ExitButton: TButton
+            Position.X = 16.000000000000000000
+            Position.Y = 157.000000000000000000
+            Size.Width = 105.000000000000000000
+            Size.Height = 44.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 3
+            Text = 'Exit'
+            OnClick = ExitButtonClick
+          end
         end
-        object RunButton: TButton
-          Position.X = 16.000000000000000000
-          Position.Y = 13.000000000000000000
-          Size.Width = 105.000000000000000000
-          Size.Height = 44.000000000000000000
+        object TabItem_Config: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 382.000000000000000000
+          Size.Height = 49.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 1
-          Text = 'Run'
-          OnClick = RunButtonClick
-        end
-        object StopButton: TButton
-          Position.X = 16.000000000000000000
-          Position.Y = 61.000000000000000000
-          Size.Width = 105.000000000000000000
-          Size.Height = 44.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 2
-          Text = 'Stop'
-          OnClick = StopButtonClick
-        end
-        object ConfigButton: TButton
-          Position.X = 16.000000000000000000
-          Position.Y = 109.000000000000000000
-          Size.Width = 105.000000000000000000
-          Size.Height = 44.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 3
+          TabOrder = 0
           Text = 'Config'
-          OnClick = ConfigButtonClick
-        end
-        object ExitButton: TButton
-          Position.X = 16.000000000000000000
-          Position.Y = 157.000000000000000000
-          Size.Width = 105.000000000000000000
-          Size.Height = 44.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 4
-          Text = 'Exit'
-          OnClick = ExitButtonClick
         end
       end
-      object TabItem_Config: TTabItem
-        CustomIcon = <
-          item
-          end>
-        IsSelected = False
-        Size.Width = 382.000000000000000000
-        Size.Height = 49.000000000000000000
+      object LabelTitle: TLabel
+        Align = Top
+        StyledSettings = [Family, Size, FontColor]
+        Size.Width = 765.000000000000000000
+        Size.Height = 41.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 0
-        Text = 'Config'
+        TextSettings.Font.Style = [fsBold]
+        TextSettings.HorzAlign = Center
+        Text = #47588#51649#49548#46972' v1.2a'
       end
     end
   end
