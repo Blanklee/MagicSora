@@ -1,0 +1,108 @@
+object ConfigForm: TConfigForm
+  Left = 0
+  Top = 0
+  Caption = 'Config'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Memo1: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Lines.Strings = (
+        '[Test]'
+        '// Test'#50857' Section'#51060' '#54596#50836' '#50630#51004#47732' SolutionName=  '#51004#47196' '#48708#50892' '#45459#51004#49464#50836
+        'SolutionName=Test'
+        'SolutionServer=192.168.1.2'
+        'Port1=80'
+        'Port2=3306'
+        ''
+        '// '#51060#54616' Section '#48143' '#54637#47785#51008' '#44508#52825#50640' '#47582#44172' '#51089#49457#54616#49464#50836
+        '// [Solution] '#48143' Port '#48264#54840#45716' 1'#48512#53552' '#49692#52264#51613#44032', '#52572#45824' 1000'#44060#44620#51648
+        '// SolutionName '#48143' SolutionServer '#48708#50864#47732' '#50504#46120
+        ''
+        '[Solution1]'
+        'SolutionName=CounThru'
+        'SolutionServer=192.1.1.119'
+        'Port1=7005'
+        'Port2=161'
+        'Port3=80'
+        'Port4=25'
+        'Port5=465'
+        ''
+        '[Solution2]'
+        'SolutionName=SPS'
+        'SolutionServer=192.1.1.131'
+        'Port1=80'
+        'Port2=5000'
+        'Port3=5443'
+        'Port4=21'
+        'Port5=990'
+        'Port6=9100'
+        'Port7=9900'
+        'Port8=9443'
+        'Port9=161'
+        'Port10=1443'
+        ''
+        '[Solution3]'
+        'SolutionName=e-Fax'
+        'SolutionServer=192.1.1.126'
+        'Port1=80'
+        'Port2=443'
+        'Port3=161'
+        'Port4=9402'
+        'Port5=25'
+        'Port6=21'
+        ''
+        ''
+        '')
+      Align = Client
+      Margins.Left = 136.000000000000000000
+      Size.Width = 504.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 491.000000000000000000
+      Viewport.Height = 467.000000000000000000
+    end
+    object SaveButton: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 13.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Save'
+      OnClick = SaveButtonClick
+    end
+    object RevertButton: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 61.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Revert'
+      OnClick = RevertButtonClick
+    end
+    object CancelButton: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 109.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Cancel'
+      OnClick = CancelButtonClick
+    end
+  end
+end

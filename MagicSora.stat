@@ -1,10 +1,10 @@
 [Stats]
-EditorSecs=1
+EditorSecs=6247
 DesignerSecs=1
-InspectorSecs=37
-CompileSecs=5174
-OtherSecs=64
-StartTime=2018-06-29 오후 11:26:28
+InspectorSecs=451
+CompileSecs=91154
+OtherSecs=2251
+StartTime=2018-05-17 오전 12:29:31
 RealKeys=0
 EffectiveKeys=0
-DebugSecs=1
+DebugSecs=629
