@@ -2,7 +2,7 @@ object UsbLoadForm: TUsbLoadForm
   Left = 0
   Top = 0
   Caption = 'Load ini from USB Memory'
-  ClientHeight = 480
+  ClientHeight = 656
   ClientWidth = 640
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -11,14 +11,14 @@ object UsbLoadForm: TUsbLoadForm
   object Layout1: TLayout
     Align = Client
     Size.Width = 640.000000000000000000
-    Size.Height = 480.000000000000000000
+    Size.Height = 656.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object ListBox1: TListBox
       Align = Client
       Margins.Left = 136.000000000000000000
       Size.Width = 504.000000000000000000
-      Size.Height = 480.000000000000000000
+      Size.Height = 656.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       OnClick = ListBox1Click
@@ -28,7 +28,7 @@ object UsbLoadForm: TUsbLoadForm
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
       Viewport.Width = 504.000000000000000000
-      Viewport.Height = 480.000000000000000000
+      Viewport.Height = 656.000000000000000000
       object ListBoxItem1: TListBoxItem
         TextSettings.Font.Size = 40.000000000000000000
         Size.Width = 504.000000000000000000

@@ -1,5 +1,12 @@
 unit UsbLoadForm1;
 
+{
+// Android에는 TOpenDialog가 작동하지 않기 때문에
+// 이 기능을 구현하기 위해 이경백이 만든 Unit임
+// Windows에서는 그냥 TOpenDialog 사용하면 됨
+// 즉, Windows에서는 여기 들어올 일이 없다
+}
+
 interface
 
 uses

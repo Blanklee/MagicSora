@@ -2,7 +2,7 @@ object ConfigForm: TConfigForm
   Left = 0
   Top = 0
   Caption = 'Config'
-  ClientHeight = 480
+  ClientHeight = 658
   ClientWidth = 640
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -14,7 +14,7 @@ object ConfigForm: TConfigForm
   object Layout1: TLayout
     Align = Client
     Size.Width = 640.000000000000000000
-    Size.Height = 480.000000000000000000
+    Size.Height = 658.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object Memo1: TMemo
@@ -69,11 +69,11 @@ object ConfigForm: TConfigForm
       Align = Client
       Margins.Left = 136.000000000000000000
       Size.Width = 504.000000000000000000
-      Size.Height = 480.000000000000000000
+      Size.Height = 658.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       Viewport.Width = 491.000000000000000000
-      Viewport.Height = 472.000000000000000000
+      Viewport.Height = 650.000000000000000000
     end
     object LoadButton: TButton
       Action = ChangeTabAction2
@@ -137,9 +137,14 @@ object ConfigForm: TConfigForm
       OnClick = CancelButtonClick
     end
   end
+  object OpenDialog1: TOpenDialog
+    Filter = #49444#51221#54028#51068' (*.ini)|*.ini'
+    Left = 56
+    Top = 352
+  end
   object ActionList1: TActionList
-    Left = 64
-    Top = 304
+    Left = 56
+    Top = 288
     object ChangeTabAction1: TChangeTabAction
       Tab = MainForm.TabItem_Main
     end

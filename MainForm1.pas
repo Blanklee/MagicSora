@@ -12,7 +12,7 @@ uses
 
 const
   CLMAX = 100;
-  MyVersion = '매직소라 v1.3a  for Samsung DMFP.';
+  MyVersion = '매직소라 v1.3b  for Samsung DMFP.';
   MyCopyright = 'Copyright by 이경백.'#10#10 + '작성일자 : 2018. 07.';
 
 type
@@ -28,7 +28,8 @@ type
     ChangeTabAction2: TChangeTabAction;
     ChangeTabAction3: TChangeTabAction;
     LabelTop: TLabel;
-    StateLabel: TLabel;
+    LabelTemp: TLabel;
+    LabelState: TLabel;
     RunButton: TButton;
     StopButton: TButton;
     ClearButton: TButton;
@@ -54,6 +55,7 @@ type
     procedure AboutButtonClick(Sender: TObject);
     procedure ExitButtonClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
     FCount: integer;
@@ -79,6 +81,10 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
+  // LabelState가 LabelTop과 겹치지 않게 조절한다
+  // FormResize 함수는 안그래도 첫실행시 두번이나 실행됨
+  // FormResize(Sender);
+
   // 첫번째탭(Main) 띄우고, 탭은 숨긴다
   TabControl1.ActiveTab:= TabItem_Main;
   TabControl1.TabPosition:= TTabPosition.None;
@@ -148,13 +154,27 @@ var
   i: integer;
 begin
   Timer1.Enabled:= False;
-  StateLabel.Text:= 'Idle';
+  LabelState.Text:= 'Idle';
 
   ListView1.Items.Clear;
   for i:= 0 to CLMAX do cl[i].Free;
 
   ConfigForm.Free;
   UsbLoadForm.Free;
+end;
+
+procedure TMainForm.FormResize(Sender: TObject);
+begin
+  // LabelState가 LabelTop과 겹치지 않게 조절한다
+  LabelTemp.Visible:= True;
+  LabelTemp.Text:= LabelTop.Text;
+
+  // 'Idle' 기준으로 LabelTop과 겹치면 'Idle'을 왼쪽으로 이동한다
+  if LabelState.Position.X + LabelState.Size.Width > LabelTemp.Position.X
+  then LabelState.Position.X:= 16
+  else LabelState.Position.X:= 144;
+
+  LabelTemp.Visible:= False;
 end;
 
 procedure TMainForm.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -310,8 +330,8 @@ procedure TMainForm.ShowState(Running: boolean);
 begin
   // 화면에 상태 표시
   if Running
-  then StateLabel.Text:= 'Running...'
-  else StateLabel.Text:= 'Idle';
+  then LabelState.Text:= 'Running...'
+  else LabelState.Text:= 'Idle';
 
   // 상태에 따라 버튼 활성화 결정
   RunButton.Enabled:= not Running;

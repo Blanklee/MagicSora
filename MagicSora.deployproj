@@ -102,6 +102,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.3b\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="..\Icon\Icon7\sora72.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>

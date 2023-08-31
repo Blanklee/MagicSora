@@ -20,14 +20,15 @@ type
     ActionList1: TActionList;
     ChangeTabAction1: TChangeTabAction;
     ChangeTabAction2: TChangeTabAction;
+    OpenDialog1: TOpenDialog;
     procedure FormCreate(Sender: TObject);
     procedure FormVirtualKeyboardShown(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
     procedure FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure LoadButtonClick(Sender: TObject);
+    procedure SaveButtonClick(Sender: TObject);
     procedure ApplyButtonClick(Sender: TObject);
     procedure RevertButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
-    procedure LoadButtonClick(Sender: TObject);
-    procedure SaveButtonClick(Sender: TObject);
   private
     { Private declarations }
     FUsbFileName: string;
@@ -46,7 +47,18 @@ implementation
 
 {$R *.fmx}
 
-uses MainForm1, System.IOUtils, System.IniFiles, UsbLoadForm1;
+uses
+  MainForm1, System.IOUtils, System.IniFiles, UsbLoadForm1;
+
+const
+  {$IFDEF ANDROID}
+  USB1 = 'USB';
+  USB2 = 'USB 메모리';
+  {$ENDIF}
+  {$IFDEF MSWINDOWS}
+  USB1 = '파일';
+  USB2 = '읽어온 파일';
+  {$ENDIF}
 
 { TConfigForm }
 
@@ -58,7 +70,7 @@ begin
 
   // 최초 1번째 실행시: Memo1에 있는 기본내용을 ini 파일로 한번 저장해 준다
   IniFileName:= System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath, 'MagicSora.ini');
-  if not TDirectory.Exists(IniFileName) then Memo1.Lines.SaveToFile(IniFileName);
+  if not TFile.Exists(IniFileName) then Memo1.Lines.SaveToFile(IniFileName);
 
   // IniFileName 출력해 본다
   // MainForm.ToastMessage('IniFileName = ' + FIniFileName);
@@ -115,7 +127,7 @@ end;
 procedure TConfigForm.LoadUsbFile(AFileName: string);
 begin
   // 파일이 존재하는지 검사
-  if not TDirectory.Exists(AFileName) then
+  if not TFile.Exists(AFileName) then
   begin
     MainForm.ToastMessage('파일을 읽을 수 없습니다.');
     exit;
@@ -131,23 +143,36 @@ begin
   SaveButton.Enabled:= True;
 
   // 화면에 안내문 출력
-  MainForm.ToastMessage('USB에서 설정을 읽어왔습니다.');
+  MainForm.ToastMessage(USB1 + '에서 설정을 읽어왔습니다.');
 end;
 
 procedure TConfigForm.LoadButtonClick(Sender: TObject);
 begin
+  {$IFDEF ANDROID}
+  // Android 에서는 TOpenDialog가 동작하지 않으므로 UsbLoadForm을 띄워준다
   // MainForm.TabControl1.ActiveTab:= MainForm.TabItem_UsbLoad;
   ChangeTabAction2.ExecuteTarget(Self);
 
-  // USB로부터 ini파일 읽기 실행
+  // USB 폴더에 있는 내용을 가져와 보여준다
   UsbLoadForm.LaunchUsbFolder;
+  {$ENDIF}
+
+  {$IFDEF MSWINDOWS}
+  // Windows 에서는 그냥 TOpenDialog를 사용하면 된다
+  if OpenDialog1.Execute then
+  begin
+    // ini 파일을 Open한다
+    // Android 에서도 결국 아래함수 호출한다
+    LoadUsbFile(OpenDialog1.FileName);
+  end;
+  {$ENDIF}
 end;
 
 procedure TConfigForm.SaveButtonClick(Sender: TObject);
 begin
   // USB에 ini파일 저장
   // 파일 이름은 아까 LoadUsbFile 함수에서 저장해 놓은것 사용
-  MessageDlg('USB 메모리에 현재 내용을 저장할까요 ?',
+  MessageDlg(USB2 + '에 현재 내용을 저장할까요 ?',
   TMsgDlgType.mtConfirmation, mbOkCancel, 0,
   procedure(const AResult: TModalResult)
   begin
@@ -155,12 +180,12 @@ begin
     begin
       // 문제점 : Load 하지 않았는데 먼저 Save 하는 경우, 또는 파일이름이 아직 없으면 저장이 안돼야 함
       if FUsbFileName = ''
-      then MainForm.ToastMessage('USB에서 아직 읽지 않았습니다.')
+      then MainForm.ToastMessage(USB1 + '에서 아직 읽지 않았습니다.')
       // 문제점 : 저장할 파일이름 선택할 수 있게 할것
       // USB 메모리에 그대로 저장. 현재는 그냥 덮어쓴다.
       else begin
         Memo1.Lines.SaveToFile(FUsbFileName);
-        MainForm.ToastMessage('USB로 저장하였습니다.');
+        MainForm.ToastMessage(USB1 + '로 저장하였습니다.');
       end;
     end;
   end);
