@@ -3,7 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.blanklee.MagicSora"
         android:versionCode="1"
-        android:versionName="1.2.1"
+        android:versionName="1.2.2"
         android:installLocation="internalOnly">
 
     <!-- This is the platform API where NativeActivity was introduced. -->
@@ -25,7 +25,7 @@
              This will take care of integrating with our NDK code. -->
         <activity android:name="com.embarcadero.firemonkey.FMXNativeActivity"
                 android:label="MagicSora"
-                android:configChanges="orientation|keyboard|keyboardHidden"
+                android:configChanges="orientation|keyboard"
                 android:launchMode="singleTask">
             <!-- Tell NativeActivity the name of our .so -->
             <meta-data android:name="android.app.lib_name"
@@ -35,6 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> 
         </activity>
+
+        <!-- bluexmas -->
+		<activity android:name="com.lamerman.FileDialog"
+            android:configChanges="orientation|keyboard" />
+
         
         <receiver android:name="com.embarcadero.firemonkey.notifications.FMXNotificationAlarm" />
         

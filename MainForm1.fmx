@@ -130,7 +130,7 @@ object MainForm: TMainForm
         Size.PlatformDefault = False
         TextSettings.Font.Style = [fsBold]
         TextSettings.HorzAlign = Center
-        Text = #47588#51649#49548#46972' v1.2a'
+        Text = #47588#51649#49548#46972' v1.2b'
       end
     end
   end

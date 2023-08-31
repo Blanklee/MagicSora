@@ -3,7 +3,56 @@
     <ProjectExtensions>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'">
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="Android\Release\AndroidManifest.xml" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\</RemoteDir>
@@ -16,14 +65,6 @@
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-large\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2a\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -45,6 +86,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2b\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Android\Release\libMagicSora.so" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\library\lib\armeabi-v7a\</RemoteDir>
             <RemoteName>libMagicSora.so</RemoteName>
@@ -54,6 +103,30 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="..\Icon\Icon5\sora48.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
@@ -62,10 +135,26 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="..\Icon\Icon5\sora36.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -94,25 +183,9 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="..\Icon\Icon5\sora144.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="D:\Devel\4.ETC\PortCheck\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -142,6 +215,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-normal\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
@@ -150,16 +231,32 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="D:\Devel\4.ETC\Network\PortCheck\v1.1\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
-            <Operation>1</Operation>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-    </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Win32\Release\MagicSora.exe" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\</RemoteDir>
             <RemoteName>MagicSora.exe</RemoteName>
@@ -168,6 +265,22 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="Win32\Debug\MagicSora.exe" Condition="'$(Config)'=='Debug'">
             <RemoteDir>MagicSora\</RemoteDir>
@@ -178,14 +291,168 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
     </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'"/>
-    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSX32'">
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
             <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
             <RemoteName>libcgunwind.1.0.dylib</RemoteName>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -208,10 +475,58 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_main.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_main.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib">
             <RemoteDir>MagicSora.app\</RemoteDir>
             <RemoteName>libcgunwind.1.0.dylib</RemoteName>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\file.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\layout\file_dialog_row.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>file_dialog_row.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\drawable\folder.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora.app\</RemoteDir>
+            <RemoteName>folder.png</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>

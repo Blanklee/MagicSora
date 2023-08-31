@@ -5,21 +5,29 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.StdCtrls, FMX.Edit;
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.StdCtrls, FMX.Edit,
+  Androidapi.JNI.Interfaces, System.Messaging, FMX.Platform.Android,
+  Androidapi.Helpers, Androidapi.JNI.App, Androidapi.JNI.GraphicsContentViewText;
 
 type
   TConfigForm = class(TForm)
     Layout1: TLayout;
+    LoadButton: TButton;
     SaveButton: TButton;
     RevertButton: TButton;
     CancelButton: TButton;
     Memo1: TMemo;
     procedure FormCreate(Sender: TObject);
+    procedure LoadButtonClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
     procedure RevertButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
   private
     { Private declarations }
+    const ScanRequestCode = 0;
+    var FMessageSubscriptionID: Integer;
+    procedure HandleActivityMessage(const Sender: TObject; const M: TMessage);
+    function OnActivityResult(RequestCode, ResultCode: Integer; Data: JIntent): Boolean;
   public
     { Public declarations }
     procedure LoadIniFile;
@@ -54,6 +62,67 @@ begin
   // Memo1.Lines.Clear;
   Memo1.Lines.LoadFromFile(IniFileName);
 end;
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// 여기서부터 OpenDialog 구현
+
+procedure TConfigForm.HandleActivityMessage(const Sender: TObject; const M: TMessage);
+begin
+  if M is TMessageResultNotification then
+    OnActivityResult(TMessageResultNotification(M).RequestCode, TMessageResultNotification(M).ResultCode,
+    TMessageResultNotification(M).Value);
+end;
+
+function TConfigForm.OnActivityResult(RequestCode, ResultCode: Integer; Data: JIntent): Boolean;
+var
+  filename : string;
+begin
+  Result := False;
+
+  TMessageManager.DefaultManager.Unsubscribe(TMessageResultNotification, FMessageSubscriptionID);
+  FMessageSubscriptionID := 0;
+
+  // For more info see https://github.com/zxing/zxing/wiki/Scanning-Via-Intent
+  if RequestCode = ScanRequestCode then
+  begin
+    if ResultCode = TJActivity.JavaClass.RESULT_OK then
+    begin
+      if Assigned(Data) then
+      begin
+        filename := JStringToString(Data.getStringExtra(StringToJString('RESULT_PATH')));
+        // 설정 파일로부터 내용을 읽어들인다
+        Memo1.Lines.LoadFromFile(filename);
+        //Toast(Format('Found %s format barcode:'#10'%s', [ScanFormat, ScanContent]), LongToast);
+      end;
+    end
+    else if ResultCode = TJActivity.JavaClass.RESULT_CANCELED then
+    begin
+      //Toast('You cancelled the scan', ShortToast);
+    end;
+    Result := True;
+  end;
+end;
+
+procedure TConfigForm.LoadButtonClick(Sender: TObject);
+var
+  Intent: JIntent; // JFileDialog;
+begin
+  FMessageSubscriptionID := TMessageManager.DefaultManager.SubscribeToMessage
+    (TMessageResultNotification, HandleActivityMessage);
+
+  Intent := TJIntent.JavaClass.init;
+  Intent.setClassName(SharedActivityContext, StringToJString('com.lamerman.FileDialog'));
+  SharedActivity.startActivityForResult(Intent, 0);
+end;
+
+// 여기까지 OpenDialog 구현
+// ------------------------------------------------------------------------------------------
+
+
+
 
 procedure TConfigForm.SaveButtonClick(Sender: TObject);
 begin
