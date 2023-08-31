@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.392,D:\Devel\4.ETC\PortCheck\MainForm1.pas=C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.306,D:\Devel\4.ETC\PortCheck\PortCheck.dproj=C:\Users\blank\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.683,D:\Devel\4.ETC\Network\PortCheck\v1.1\Client1.pas=D:\Devel\4.ETC\Network\PortCheck\v1.1\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.392,C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Devel\4.ETC\PortCheck\MainForm1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.747,=C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.392,D:\Devel\4.ETC\PortCheck\MainForm1.fmx=C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.306,C:\Users\blank\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Devel\4.ETC\PortCheck\PortCheck.dproj</Transaction>
     <Transaction>1899-12-30 00:00:00.000.358,=D:\Devel\4.ETC\Network\PortCheck\v1.1\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.683,D:\Devel\4.ETC\Network\PortCheck\v1.1\Unit1.pas=D:\Devel\4.ETC\Network\PortCheck\v1.1\Client1.pas</Transaction>
-    <Transaction>2018-05-10 09:16:23.607,D:\Devel\4.ETC\Network\PortCheck\v1.1\MagicSora.dproj=D:\Devel\4.ETC\Network\PortCheck\v1.1\PortCheck.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.392,C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.fmx=D:\Devel\4.ETC\PortCheck\MainForm1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,D:\Devel\4.ETC\Network\PortCheck\v1.1\PortCheck.dproj=D:\Devel\4.ETC\Network\PortCheck\v1.1\MagicSora.dproj</Transaction>
   </Transactions>
 	<MobileDevice>ce0317139cd0cc9c0c-Android</MobileDevice>
 </BorlandProject>
