@@ -1,0 +1,134 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 625
+  ClientWidth = 457
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object Label1: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 80.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 265.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 20.000000000000000000
+    TextSettings.HorzAlign = Center
+    Text = #54252#53944#47484' '#54869#51064#54633#45768#45796
+  end
+  object Label2: TLabel
+    Position.X = 32.000000000000000000
+    Position.Y = 136.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = #54869#51064#54624' '#49436#48260' IP :'
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 0
+    Position.X = 192.000000000000000000
+    Position.Y = 128.000000000000000000
+    Size.Width = 217.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Label3: TLabel
+    Position.X = 32.000000000000000000
+    Position.Y = 176.000000000000000000
+    Size.Width = 145.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = #54252#53944' '#48264#54840' :'
+  end
+  object Edit2: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Position.X = 192.000000000000000000
+    Position.Y = 168.000000000000000000
+    Size.Width = 217.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Button1: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 240.000000000000000000
+    Size.Width = 129.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = #50672#44208#54616#44592
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 24.000000000000000000
+    Position.Y = 312.000000000000000000
+    Size.Width = 417.000000000000000000
+    Size.Height = 297.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Viewport.Width = 409.000000000000000000
+    Viewport.Height = 289.000000000000000000
+  end
+  object Button3: TButton
+    Position.X = 312.000000000000000000
+    Position.Y = 240.000000000000000000
+    Size.Width = 105.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Text = #51333#47308
+    OnClick = Button3Click
+  end
+  object Button2: TButton
+    Position.X = 176.000000000000000000
+    Position.Y = 240.000000000000000000
+    Size.Width = 129.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = #50672#44208#54644#51228
+    OnClick = Button2Click
+  end
+  object IdTCPClient1: TIdTCPClient
+    OnStatus = IdTCPClient1Status
+    Intercept = IdLogEvent1
+    OnDisconnected = IdTCPClient1Disconnected
+    OnConnected = IdTCPClient1Connected
+    ConnectTimeout = 0
+    IPVersion = Id_IPv4
+    Port = 0
+    ReadTimeout = 5000
+    Left = 96
+    Top = 392
+  end
+  object IdFTP1: TIdFTP
+    IPVersion = Id_IPv4
+    ConnectTimeout = 0
+    NATKeepAlive.UseKeepAlive = False
+    NATKeepAlive.IdleTimeMS = 0
+    NATKeepAlive.IntervalMS = 0
+    ProxySettings.ProxyType = fpcmNone
+    ProxySettings.Port = 0
+    Left = 304
+    Top = 392
+  end
+  object IdTelnet1: TIdTelnet
+    Terminal = 'dumb'
+    Left = 248
+    Top = 392
+  end
+  object IdLogEvent1: TIdLogEvent
+    OnConnect = IdLogEvent1Connect
+    OnDisconnect = IdLogEvent1Disconnect
+    OnReceive = IdLogEvent1Receive
+    OnStatus = IdLogEvent1Status
+    Left = 176
+    Top = 392
+  end
+end
