@@ -11,11 +11,11 @@ uses
   FMX.TabControl;
 
 const
-  MAX = 100;
+  CLMAX = 100;
 
 type
   TMainForm = class(TForm)
-    Label1: TLabel;
+    TopLabel: TLabel;
     RunButton: TButton;
     StopButton: TButton;
     ConfigButton: TButton;
@@ -40,9 +40,8 @@ type
   private
     { Private declarations }
     FCount: integer;
-    cl: array[0..MAX] of TClient;
+    cl: array[0..CLMAX] of TClient;
     procedure LoadFromIniFile;
-    // procedure SaveToIniFile;
   public
     { Public declarations }
     procedure GotoMainTab(Save: integer);
@@ -70,14 +69,14 @@ begin
   ConfigForm.Layout1.Parent:= TabItem_Config;
 
   // Client 생성
-  for i:= 0 to MAX do cl[i]:= TClient.Create;
+  for i:= 0 to CLMAX do cl[i]:= TClient.Create;
 
   // ini 파일로부터 Socket 초기화 (ini 파일은 ConfigForm.Create 통해 항상 존재함)
   LoadFromIniFile;
 
   {
   // Client 생성 : item 생성도 LoadFromIniFile에서 수행됨
-  for i:= 0 to MAX do
+  for i:= 0 to CLMAX do
   begin
     cl[i]:= TClient.Create;
     item:= ListView1.Items.Add;
@@ -124,7 +123,7 @@ var
 begin
   Timer1.Enabled:= False;
   ListView1.Items.Clear;
-  for i:= 0 to MAX do cl[i].Free;
+  for i:= 0 to CLMAX do cl[i].Free;
   ConfigForm.Free;
 end;
 
@@ -138,9 +137,13 @@ begin
   // Config 화면이라면
   if (TabControl1.ActiveTab = TabItem_Config) then
   begin
-    // 종료하지 말고 Cancel 버튼 클릭한 것처럼 동작하라
-    Key:= 0;
-    ConfigForm.CancelButtonClick(Sender);
+    // 가상 키보드가 보여지고 있다면 키보드 숨기는 일을 자동으로 하므로 그냥 냅둔다
+    if not ConfigForm.KBVisible then
+    begin
+      // 종료하지 말고 Cancel 버튼 클릭한 것처럼 동작하라
+      Key:= 0;
+      ConfigForm.CancelButtonClick(Sender);
+    end;
   end else
 
   // Back 누르면 그냥 종료돼 버리는데, 종료할지 물어보고 종료한다
@@ -226,22 +229,6 @@ begin
     IniFile.Free;
   end;
 end;
-
-{
-procedure TMainForm.SaveToIniFile;
-var
-  IniFile: TIniFile;
-begin
-  // Ini 파일로 저장한다
-  IniFile:= TIniFile.Create(IniFileName);
-  try
-    // IniFile.WriteString('Options', 'Server', edServer.Text);
-    // IniFile.WriteString('Options', 'MyNumber', edMyNumber.Text);
-  finally
-    IniFile.Free;
-  end;
-end;
-}
 
 procedure TMainForm.ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
 begin

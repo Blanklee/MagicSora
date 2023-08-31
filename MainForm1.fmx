@@ -11,7 +11,7 @@ object MainForm: TMainForm
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   DesignerMasterStyle = 3
-  object Label1: TLabel
+  object TopLabel: TLabel
     Align = Top
     StyledSettings = [Family, Size, FontColor]
     Size.Width = 765.000000000000000000
@@ -19,7 +19,7 @@ object MainForm: TMainForm
     Size.PlatformDefault = False
     TextSettings.Font.Style = [fsBold]
     TextSettings.HorzAlign = Center
-    Text = #47588#51649#49548#46972' v1.2'
+    Text = #47588#51649#49548#46972' v1.2c'
   end
   object Timer1: TTimer
     Enabled = False
