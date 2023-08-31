@@ -12,6 +12,8 @@ uses
 
 const
   CLMAX = 100;
+  MyVersion = '매직소라 v1.3a  for Samsung DMFP.';
+  MyCopyright = 'Copyright by 이경백.'#10#10 + '작성일자 : 2018. 07.';
 
 type
   TMainForm = class(TForm)
@@ -31,6 +33,7 @@ type
     StopButton: TButton;
     ClearButton: TButton;
     ConfigButton: TButton;
+    AboutButton: TButton;
     ExitButton: TButton;
     ListView1: TListView;
     BallImageList1: TImageList;
@@ -43,13 +46,14 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
     procedure RunButtonClick(Sender: TObject);
     procedure StopButtonClick(Sender: TObject);
-    procedure ConfigButtonClick(Sender: TObject);
-    procedure ExitButtonClick(Sender: TObject);
-    procedure ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
-    procedure Timer1Timer(Sender: TObject);
     procedure ClearButtonClick(Sender: TObject);
+    procedure ConfigButtonClick(Sender: TObject);
+    procedure AboutButtonClick(Sender: TObject);
+    procedure ExitButtonClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
     FCount: integer;
@@ -187,7 +191,7 @@ begin
   begin
     // 종료하지 말고 Cancel 버튼 클릭한 것처럼 동작하라
     Key:= 0;
-    TabControl1.ActiveTab:= TabItem_Config;
+    UsbLoadForm.CancelButtonClick(Sender);
   end else
 end;
 
@@ -266,19 +270,6 @@ begin
   end;
 end;
 
-procedure TMainForm.ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
-begin
-  // 각 Item의 Button을 Click할 경우 해당 Port만 Check한다
-  Timer1.Enabled:= False;
-
-  // 버튼 1개를 누를때는 굳이 Running.. 표시를 하지 않는다 (주석처리)
-  // ShowState(True);
-
-  // 해당 cl[]를 Run한다. cl[] 번호는 item.Tag에 저장해 두었다
-  // AItem.Tag에 Client 번호가 있으므로 Client를 쉽게 찾아갈 수 있다
-  cl[AItem.Tag].Run;
-end;
-
 procedure TMainForm.Timer1Timer(Sender: TObject);
 begin
   // ListView에 있는 모든 항목들에 대하여 순차적으로 Run 시킨다
@@ -328,6 +319,19 @@ begin
   ClearButton.Enabled:= not Running;
   ConfigButton.Enabled:= not Running;
   ExitButton.Enabled:= not Running;
+end;
+
+procedure TMainForm.ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
+begin
+  // 각 Item의 Button을 Click할 경우 해당 Port만 Check한다
+  Timer1.Enabled:= False;
+
+  // 버튼 1개를 누를때는 굳이 Running.. 표시를 하지 않는다 (주석처리)
+  // ShowState(True);
+
+  // 해당 cl[]를 Run한다. cl[] 번호는 item.Tag에 저장해 두었다
+  // AItem.Tag에 Client 번호가 있으므로 Client를 쉽게 찾아갈 수 있다
+  cl[AItem.Tag].Run;
 end;
 
 procedure TMainForm.RunButtonClick(Sender: TObject);
@@ -389,6 +393,11 @@ begin
   // 설정 화면을 띄워준다
   // TabControl1.ActiveTab:= TabItem_Config;
   ChangeTabAction2.ExecuteTarget(Self);
+end;
+
+procedure TMainForm.AboutButtonClick(Sender: TObject);
+begin
+  ShowMessage(MyVersion + #10#10 + MyCopyright);
 end;
 
 procedure TMainForm.ExitButtonClick(Sender: TObject);

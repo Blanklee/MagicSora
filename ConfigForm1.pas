@@ -58,7 +58,7 @@ begin
 
   // 최초 1번째 실행시: Memo1에 있는 기본내용을 ini 파일로 한번 저장해 준다
   IniFileName:= System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath, 'MagicSora.ini');
-  if not FileExists(IniFileName) then Memo1.Lines.SaveToFile(IniFileName);
+  if not TDirectory.Exists(IniFileName) then Memo1.Lines.SaveToFile(IniFileName);
 
   // IniFileName 출력해 본다
   // MainForm.ToastMessage('IniFileName = ' + FIniFileName);
@@ -109,10 +109,18 @@ begin
 
   // 이제 USB로 Save는 할 수 없다
   SaveButton.Enabled:= False;
+  FUsbFileName:= '';
 end;
 
 procedure TConfigForm.LoadUsbFile(AFileName: string);
 begin
+  // 파일이 존재하는지 검사
+  if not TDirectory.Exists(AFileName) then
+  begin
+    MainForm.ToastMessage('파일을 읽을 수 없습니다.');
+    exit;
+  end;
+
   // 파일이름은 저장해 두고
   FUsbFileName:= AFileName;
 
@@ -161,7 +169,7 @@ end;
 procedure TConfigForm.ApplyButtonClick(Sender: TObject);
 begin
   // Save => 물어보고 Goto Main
-  MessageDlg('Apply and exit ?',
+  MessageDlg('포트 목록에 반영할까요 ?',
     TMsgDlgType.mtConfirmation, mbOkCancel, 0,
     procedure(const AResult: TModalResult)
     begin
@@ -194,7 +202,7 @@ end;
 procedure TConfigForm.CancelButtonClick(Sender: TObject);
 begin
   // Cancel => 물어보고 Goto Main
-  MessageDlg('Cancel and exit ?'#10#10'변경사항은 모두 원상복구 됩니다.',
+  MessageDlg('취소하고 원래의 포트 목록으로 돌아갑니다.',
     TMsgDlgType.mtConfirmation, mbOkCancel, 0,
     procedure(const AResult: TModalResult)
     begin

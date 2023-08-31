@@ -21,22 +21,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon6\sora48.PNG" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="..\Icon\Icon6\sora144.PNG" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\res\drawable-xxhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-small\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
@@ -53,14 +37,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="..\Icon\Icon6\sora72.PNG" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2d\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\classes\</RemoteDir>
@@ -86,6 +62,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="..\Icon\Icon7\sora96.PNG" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\library\lib\mips\</RemoteDir>
             <RemoteName>libPortCheck.so</RemoteName>
@@ -102,17 +86,25 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon6\sora96.PNG" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\res\drawable-xhdpi\</RemoteDir>
+        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\Icon\Icon7\sora48.PNG" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
-            <RemoteDir>MagicSora\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
+        <DeployFile Include="..\Icon\Icon7\sora72.PNG" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -142,7 +134,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon6\sora36.PNG" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="..\Icon\Icon7\sora36.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
@@ -153,6 +145,22 @@
         <DeployFile Include="$(NDKBasePath)\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\library\lib\armeabi-v7a\</RemoteDir>
             <RemoteName>gdbserver</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\Icon\Icon7\sora144.PNG" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.3a\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>

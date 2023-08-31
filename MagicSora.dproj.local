@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.889,D:\Devel\2.PRJ\19_MagicSora\v1.3a\UsbLoadForm1.pas=</Transaction>
     <Transaction>1899-12-30 00:00:00.000.464,=D:\Devel\2.PRJ\19_MagicSora\v1.3a\UsbLoadForm1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.889,D:\Devel\2.PRJ\19_MagicSora\v1.3a\UsbLoadForm1.pas=</Transaction>
     <Transaction>1899-12-30 00:00:00.000.893,=D:\Devel\2.PRJ\19_MagicSora\v1.2\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.358,=D:\Devel\4.ETC\Network\PortCheck\v1.1\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.877,D:\Devel\2.PRJ\19_MagicSora\v1.2\ConfigForm1.fmx=D:\Devel\2.PRJ\19_MagicSora\v1.2\Unit1.fmx</Transaction>
@@ -17,6 +17,6 @@
     <Transaction>1899-12-30 00:00:00.000.392,D:\Devel\4.ETC\PortCheck\MainForm1.fmx=C:\Users\blank\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
     <Transaction>1899-12-30 00:00:00.000.647,D:\Devel\2.PRJ\19_MagicSora\v1.3\UsbLoadForm1.fmx=D:\Devel\2.PRJ\19_MagicSora\v1.3\Unit1.fmx</Transaction>
   </Transactions>
-	<MobileDevice>33002dbe15cb2300-Android</MobileDevice>
+	<MobileDevice>ce0317139cd0cc9c0c-Android</MobileDevice>
 	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>

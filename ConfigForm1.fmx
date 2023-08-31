@@ -71,9 +71,32 @@ object ConfigForm: TConfigForm
       Size.Width = 504.000000000000000000
       Size.Height = 480.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 3
+      TabOrder = 0
       Viewport.Width = 491.000000000000000000
       Viewport.Height = 472.000000000000000000
+    end
+    object LoadButton: TButton
+      Action = ChangeTabAction2
+      Enabled = True
+      ImageIndex = -1
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Visible = True
+      OnClick = LoadButtonClick
+    end
+    object SaveButton: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'USB Save'
+      OnClick = SaveButtonClick
     end
     object ApplyButton: TButton
       Action = ChangeTabAction1
@@ -84,7 +107,7 @@ object ConfigForm: TConfigForm
       Size.Width = 105.000000000000000000
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 0
+      TabOrder = 3
       Text = 'Apply'
       Visible = True
       OnClick = ApplyButtonClick
@@ -95,7 +118,7 @@ object ConfigForm: TConfigForm
       Size.Width = 105.000000000000000000
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 4
       Text = 'Revert'
       OnClick = RevertButtonClick
     end
@@ -108,33 +131,10 @@ object ConfigForm: TConfigForm
       Size.Width = 105.000000000000000000
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 2
+      TabOrder = 5
       Text = 'Cancel'
       Visible = True
       OnClick = CancelButtonClick
-    end
-    object LoadButton: TButton
-      Action = ChangeTabAction2
-      Enabled = True
-      ImageIndex = -1
-      Position.X = 16.000000000000000000
-      Position.Y = 16.000000000000000000
-      Size.Width = 105.000000000000000000
-      Size.Height = 41.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 5
-      Visible = True
-      OnClick = LoadButtonClick
-    end
-    object SaveButton: TButton
-      Position.X = 16.000000000000000000
-      Position.Y = 64.000000000000000000
-      Size.Width = 105.000000000000000000
-      Size.Height = 41.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 4
-      Text = 'USB Save'
-      OnClick = SaveButtonClick
     end
   end
   object ActionList1: TActionList
