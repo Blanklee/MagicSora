@@ -16,6 +16,7 @@ const
 type
   TMainForm = class(TForm)
     TopLabel: TLabel;
+    StateLabel: TLabel;
     RunButton: TButton;
     StopButton: TButton;
     ConfigButton: TButton;
@@ -28,6 +29,7 @@ type
     TabControl1: TTabControl;
     TabItem_Main: TTabItem;
     TabItem_Config: TTabItem;
+    ClearButton: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -37,11 +39,13 @@ type
     procedure ExitButtonClick(Sender: TObject);
     procedure ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
     procedure Timer1Timer(Sender: TObject);
+    procedure ClearButtonClick(Sender: TObject);
   private
     { Private declarations }
     FCount: integer;
     cl: array[0..CLMAX] of TClient;
     procedure LoadFromIniFile;
+    procedure ShowState(Running: boolean);
   public
     { Public declarations }
     procedure GotoMainTab(Save: integer);
@@ -122,6 +126,8 @@ var
   i: integer;
 begin
   Timer1.Enabled:= False;
+  StateLabel.Text:= 'Idle';
+
   ListView1.Items.Clear;
   for i:= 0 to CLMAX do cl[i].Free;
   ConfigForm.Free;
@@ -219,10 +225,12 @@ begin
 
         // 다음 cl[]의 index를 위해 Count 증가
         Count:= Count + 1;
+        if Count > CLMAX then break;
       end;
 
       // 다음 Section을 위해 Section 증가
       Section:= Section + 1;
+      if Count > CLMAX then break;
     until Section > 10000;
 
   finally
@@ -233,13 +241,20 @@ end;
 procedure TMainForm.ListView1ButtonClick(const Sender: TObject; const AItem: TListViewItem; const AObject: TListItemSimpleControl);
 begin
   // 각 Item의 Button을 Click할 경우 해당 Port만 Check한다
-  // AItem.Tag에 Client 번호가 있으므로 Client를 쉽게 찾아갈 수 있다
   Timer1.Enabled:= False;
+
+  // 버튼 1개를 누를때는 굳이 Running.. 표시를 하지 않는다 (주석처리)
+  // ShowState(True);
+
+  // 해당 cl[]를 Run한다. cl[] 번호는 item.Tag에 저장해 두었다
+  // AItem.Tag에 Client 번호가 있으므로 Client를 쉽게 찾아갈 수 있다
   cl[AItem.Tag].Run;
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
 begin
+  // ListView에 있는 모든 항목들에 대하여 순차적으로 Run 시킨다
+  // 결과는 Client에서 알아서 출력한다
   FCount:= FCount + 1;
   if FCount < ListView1.Items.Count
   then cl[FCount].Run
@@ -256,15 +271,16 @@ begin
 end;
 
 procedure TMainForm.RunButtonClick(Sender: TObject);
-var
-  i: integer;
 begin
   // 화면 초기화
+  ClearButtonClick(Sender);
+  {
   for i:= 0 to ListView1.Items.Count-1 do
   begin
     cl[i].item.Detail:= '';
     cl[i].item.ImageIndex:= GRAY;
   end;
+  }
 
   // 아래와 같이 하면 뻗어버림, 전부다 끝난후 한번에 결과 출력됨
   // for i:= 1 to 3 do cl[i].Run;
@@ -272,18 +288,53 @@ begin
   // 그래서 아래와 같이 Timer 사용
   FCount:= -1;
   Timer1.Enabled:= True;
+
+  // 화면에 상태 표시
+  ShowState(True);
+end;
+
+procedure TMainForm.ShowState(Running: boolean);
+begin
+  // 화면에 상태 표시
+  if Running
+  then StateLabel.Text:= 'Running...'
+  else StateLabel.Text:= 'Idle';
+
+  // 상태에 따라 버튼 활성화 결정
+  RunButton.Enabled:= not Running;
+  StopButton.Enabled:= Running;
+  ClearButton.Enabled:= not Running;
+  ConfigButton.Enabled:= not Running;
+  ExitButton.Enabled:= not Running;
 end;
 
 procedure TMainForm.StopButtonClick(Sender: TObject);
 begin
   // Run 동작을 멈춘다
   Timer1.Enabled:= False;
+  ShowState(False);
+end;
+
+procedure TMainForm.ClearButtonClick(Sender: TObject);
+var
+  i: integer;
+begin
+  // 실행 결과를 모두 초기화한다
+  Timer1.Enabled:= False;
+  ShowState(False);
+
+  for i:= 0 to ListView1.Items.Count-1 do
+  begin
+    cl[i].item.Detail:= '';
+    cl[i].item.ImageIndex:= GRAY;
+  end;
 end;
 
 procedure TMainForm.ConfigButtonClick(Sender: TObject);
 begin
   // Run 중인 동작을 멈춘다
   Timer1.Enabled:= False;
+  ShowState(False);
 
   // 현재의 설정을 메모장으로 불러온다
   ConfigForm.LoadIniFile;

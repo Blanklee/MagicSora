@@ -21,7 +21,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon5\sora96.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="..\Icon\Icon6\sora96.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-xhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
@@ -46,7 +46,15 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon5\sora48.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="D:\Devel\2.PRJ\19_MagicSora\v1.2d\Android\Release\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>MagicSora\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\Icon\Icon6\sora48.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
@@ -54,7 +62,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon5\sora36.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="..\Icon\Icon6\sora36.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
@@ -94,7 +102,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon5\sora144.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="..\Icon\Icon6\sora144.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>
@@ -134,7 +142,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="..\Icon\Icon5\sora72.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="..\Icon\Icon6\sora72.PNG" Condition="'$(Config)'=='Release'">
             <RemoteDir>MagicSora\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
             <Operation>1</Operation>

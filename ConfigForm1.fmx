@@ -21,17 +21,16 @@ object ConfigForm: TConfigForm
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
       Lines.Strings = (
+        '[Guide]'
+        '// [Solution] '#48143' Port '#48264#54840#45716' 1'#48512#53552' '#49692#52264#51613#44032
+        '// Port '#45572#51201' '#44079#49688#45716' '#52572#45824' 100'#44060#44620#51648' '#44032#45733
+        '// SolutionName '#48143' SolutionServer '#48708#50864#47732' '#50504#46120
+        ''
         '[Test]'
-        '// Test'#50857' Section'#51060' '#54596#50836' '#50630#51004#47732' SolutionName=  '#51004#47196' '#48708#50892' '#45459#51004#49464#50836
         'SolutionName=Test'
         'SolutionServer=192.168.1.2'
         'Port1=80'
         'Port2=3306'
-        ''
-        '[Guide]'
-        '// Section '#48143' '#54637#47785#51008' '#44508#52825#50640' '#47582#44172' '#51089#49457#54616#49464#50836
-        '// [Solution] '#48143' Port '#48264#54840#45716' 1'#48512#53552' '#49692#52264#51613#44032', '#52572#45824' 1000'#44060#44620#51648
-        '// SolutionName '#48143' SolutionServer '#48708#50864#47732' '#50504#46120
         ''
         '[Solution1]'
         'SolutionName=CounThru'
@@ -74,7 +73,7 @@ object ConfigForm: TConfigForm
       Size.PlatformDefault = False
       TabOrder = 3
       Viewport.Width = 491.000000000000000000
-      Viewport.Height = 467.000000000000000000
+      Viewport.Height = 472.000000000000000000
     end
     object SaveButton: TButton
       Position.X = 16.000000000000000000

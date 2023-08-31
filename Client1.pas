@@ -38,8 +38,8 @@ constructor TClient.Create;
 begin
   Inherited Create;
   Socket:= TIdTCPClient.Create(nil);
-  Socket.ConnectTimeout:= 3000;
-  Socket.ReadTimeout:= 3000;
+  Socket.ConnectTimeout:= 2000;
+  Socket.ReadTimeout:= 2000;
   Socket.OnConnected:= IdTCPClient1Connected;
   // Socket.OnDisconnected:= IdTCPClient1Disconnected;
 end;

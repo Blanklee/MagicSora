@@ -19,7 +19,7 @@ object MainForm: TMainForm
     Size.PlatformDefault = False
     TextSettings.Font.Style = [fsBold]
     TextSettings.HorzAlign = Center
-    Text = #47588#51649#49548#46972' v1.2c'
+    Text = #47588#51649#49548#46972' v1.2d'
   end
   object Timer1: TTimer
     Enabled = False
@@ -78,6 +78,7 @@ object MainForm: TMainForm
           OnClick = RunButtonClick
         end
         object StopButton: TButton
+          Enabled = False
           Position.X = 16.000000000000000000
           Position.Y = 61.000000000000000000
           Size.Width = 105.000000000000000000
@@ -89,23 +90,33 @@ object MainForm: TMainForm
         end
         object ConfigButton: TButton
           Position.X = 16.000000000000000000
-          Position.Y = 109.000000000000000000
-          Size.Width = 105.000000000000000000
-          Size.Height = 44.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 3
-          Text = 'Config'
-          OnClick = ConfigButtonClick
-        end
-        object ExitButton: TButton
-          Position.X = 16.000000000000000000
           Position.Y = 157.000000000000000000
           Size.Width = 105.000000000000000000
           Size.Height = 44.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 4
+          Text = 'Config'
+          OnClick = ConfigButtonClick
+        end
+        object ExitButton: TButton
+          Position.X = 16.000000000000000000
+          Position.Y = 205.000000000000000000
+          Size.Width = 105.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
           Text = 'Exit'
           OnClick = ExitButtonClick
+        end
+        object ClearButton: TButton
+          Position.X = 16.000000000000000000
+          Position.Y = 109.000000000000000000
+          Size.Width = 105.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Clear'
+          OnClick = ClearButtonClick
         end
       end
       object TabItem_Config: TTabItem
@@ -120,6 +131,14 @@ object MainForm: TMainForm
         Text = 'Config'
       end
     end
+  end
+  object StateLabel: TLabel
+    Position.X = 144.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 121.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Idle'
   end
   object IdTCPClient1: TIdTCPClient
     ConnectTimeout = 0
