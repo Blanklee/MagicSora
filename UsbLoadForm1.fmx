@@ -1,0 +1,68 @@
+object UsbLoadForm: TUsbLoadForm
+  Left = 0
+  Top = 0
+  Caption = 'Load ini from USB Memory'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object ListBox1: TListBox
+      Align = Client
+      Margins.Left = 136.000000000000000000
+      Size.Width = 504.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnClick = ListBox1Click
+      DisableFocusEffect = True
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      Viewport.Width = 504.000000000000000000
+      Viewport.Height = 480.000000000000000000
+    end
+    object SelectButton: TButton
+      Action = ChangeTabAction1
+      Enabled = True
+      ImageIndex = -1
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Select'
+      Visible = True
+      OnClick = SelectButtonClick
+    end
+    object CancelButton: TButton
+      Action = ChangeTabAction1
+      Enabled = True
+      ImageIndex = -1
+      Position.X = 16.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      Text = 'Cancel'
+      Visible = True
+      OnClick = CancelButtonClick
+    end
+  end
+  object ActionList1: TActionList
+    Left = 56
+    Top = 184
+    object ChangeTabAction1: TChangeTabAction
+      Tab = MainForm.TabItem_Config
+    end
+  end
+end

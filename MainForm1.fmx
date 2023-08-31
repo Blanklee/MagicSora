@@ -11,16 +11,6 @@ object MainForm: TMainForm
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   DesignerMasterStyle = 3
-  object TopLabel: TLabel
-    Align = Top
-    StyledSettings = [Family, Size, FontColor]
-    Size.Width = 765.000000000000000000
-    Size.Height = 41.000000000000000000
-    Size.PlatformDefault = False
-    TextSettings.Font.Style = [fsBold]
-    TextSettings.HorzAlign = Center
-    Text = #47588#51649#49548#46972' v1.2d'
-  end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
@@ -28,9 +18,9 @@ object MainForm: TMainForm
     Top = 112
   end
   object Layout1: TLayout
-    Align = Client
+    Align = Contents
     Size.Width = 765.000000000000000000
-    Size.Height = 584.000000000000000000
+    Size.Height = 625.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 3
     object TabControl1: TTabControl
@@ -48,7 +38,7 @@ object MainForm: TMainForm
           item
           end>
         IsSelected = True
-        Size.Width = 383.000000000000000000
+        Size.Width = 191.000000000000000000
         Size.Height = 49.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -89,13 +79,16 @@ object MainForm: TMainForm
           OnClick = StopButtonClick
         end
         object ConfigButton: TButton
+          Action = ChangeTabAction2
+          Enabled = True
+          ImageIndex = -1
           Position.X = 16.000000000000000000
           Position.Y = 157.000000000000000000
           Size.Width = 105.000000000000000000
           Size.Height = 44.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 4
-          Text = 'Config'
+          Visible = True
           OnClick = ConfigButtonClick
         end
         object ExitButton: TButton
@@ -124,12 +117,83 @@ object MainForm: TMainForm
           item
           end>
         IsSelected = False
-        Size.Width = 382.000000000000000000
+        Size.Width = 192.000000000000000000
         Size.Height = 49.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         Text = 'Config'
       end
+      object TabItem_UsbLoad: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = False
+        Size.Width = 191.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'UsbLoad'
+      end
+      object TabItem_Temp: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = False
+        Size.Width = 191.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'Temp'
+        object Layout_Toast: TLayout
+          Align = Bottom
+          Margins.Bottom = 80.000000000000000000
+          Position.Y = 415.000000000000000000
+          Size.Width = 765.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object ToastRect: TRoundRect
+            Align = HorzCenter
+            Fill.Color = xFF555555
+            HitTest = False
+            Position.X = 263.000000000000000000
+            Size.Width = 238.000000000000000000
+            Size.Height = 40.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object ShadowEffect1: TShadowEffect
+              Distance = 4.000000000000000000
+              Direction = 45.000000000000000000
+              Softness = 0.400000005960464500
+              Opacity = 0.800000011920929000
+              ShadowColor = claBlack
+              Enabled = False
+            end
+          end
+          object ToastText: TText
+            Align = Center
+            AutoSize = True
+            HitTest = False
+            Size.Width = 138.333328247070300000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            Text = #53664#49828#53944' '#47112#51060#50500#50883' '
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = claWhite
+            TextSettings.WordWrap = False
+          end
+        end
+      end
+    end
+    object LabelTop: TLabel
+      Align = Top
+      StyledSettings = [Family, Size, FontColor]
+      Size.Width = 765.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Style = [fsBold]
+      TextSettings.HorzAlign = Center
+      Text = #47588#51649#49548#46972' v1.3'
     end
   end
   object StateLabel: TLabel
@@ -285,5 +349,19 @@ object MainForm: TMainForm
       end>
     Left = 488
     Top = 112
+  end
+  object ActionList1: TActionList
+    Left = 488
+    Top = 193
+    object ChangeTabAction1: TChangeTabAction
+      Tab = TabItem_Main
+    end
+    object ChangeTabAction2: TChangeTabAction
+      CustomText = 'Config'
+      Tab = TabItem_Config
+    end
+    object ChangeTabAction3: TChangeTabAction
+      Tab = TabItem_UsbLoad
+    end
   end
 end

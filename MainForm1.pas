@@ -8,28 +8,38 @@ uses
   FMX.Controls.Presentation, FMX.StdCtrls, IdIntercept, FMX.ScrollBox, FMX.Memo,
   FMX.ListView.Types, FMX.ListView, Client1, System.ImageList, FMX.ImgList, FMX.Layouts,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdGlobal, IdStack,
-  FMX.TabControl;
+  FMX.TabControl, System.Actions, FMX.ActnList, FMX.Objects, FMX.Effects, FMX.Ani;
 
 const
   CLMAX = 100;
 
 type
   TMainForm = class(TForm)
-    TopLabel: TLabel;
+    Layout1: TLayout;
+    TabControl1: TTabControl;
+    TabItem_Main: TTabItem;
+    TabItem_Config: TTabItem;
+    TabItem_UsbLoad: TTabItem;
+    TabItem_Temp: TTabItem;
+    ActionList1: TActionList;
+    ChangeTabAction1: TChangeTabAction;
+    ChangeTabAction2: TChangeTabAction;
+    ChangeTabAction3: TChangeTabAction;
+    LabelTop: TLabel;
     StateLabel: TLabel;
     RunButton: TButton;
     StopButton: TButton;
+    ClearButton: TButton;
     ConfigButton: TButton;
     ExitButton: TButton;
     ListView1: TListView;
     BallImageList1: TImageList;
     IdTCPClient1: TIdTCPClient;
     Timer1: TTimer;
-    Layout1: TLayout;
-    TabControl1: TTabControl;
-    TabItem_Main: TTabItem;
-    TabItem_Config: TTabItem;
-    ClearButton: TButton;
+    Layout_Toast: TLayout;
+    ToastRect: TRoundRect;
+    ShadowEffect1: TShadowEffect;
+    ToastText: TText;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -49,6 +59,7 @@ type
   public
     { Public declarations }
     procedure GotoMainTab(Save: integer);
+    procedure ToastMessage(msg: string);
   end;
 
 var
@@ -58,7 +69,7 @@ implementation
 
 {$R *.fmx}
 
-uses ConfigForm1, System.IniFiles;
+uses ConfigForm1, System.IniFiles, UsbLoadForm1;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -68,9 +79,16 @@ begin
   TabControl1.ActiveTab:= TabItem_Main;
   TabControl1.TabPosition:= TTabPosition.None;
 
+  // Toast를 투명하게 해서 안보이게 한다
+  Layout_Toast.Parent:= Self;
+  Layout_Toast.Opacity:= 0.0;
+  ToastRect.Width:= 160;
+
   // Form 생성 및 Parent 조정
   ConfigForm:= TConfigForm.Create(Self);
   ConfigForm.Layout1.Parent:= TabItem_Config;
+  UsbLoadForm:= TUsbLoadForm.Create(Self);
+  UsbLoadForm.Layout1.Parent:= TabItem_UsbLoad;
 
   // Client 생성
   for i:= 0 to CLMAX do cl[i]:= TClient.Create;
@@ -130,7 +148,9 @@ begin
 
   ListView1.Items.Clear;
   for i:= 0 to CLMAX do cl[i].Free;
+
   ConfigForm.Free;
+  UsbLoadForm.Free;
 end;
 
 procedure TMainForm.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -139,6 +159,16 @@ begin
   if (Key = vkHardwareBack)
   // 또는 Windows에서는 Ctrl-Shift-Left를 누르면 (디버그용)
   or ((Key = vkLeft) and (ssCtrl in Shift)) then
+
+  // Main : Back 누르면 그냥 종료돼 버리는데, 종료할지 물어보고 종료한다
+  if (TabControl1.ActiveTab = TabItem_Main) then
+  begin
+    // 일단 종료하지 말고 (여기서 안해주면 MessageDlg도 안뜨고 바로 종료돼 버리며
+    // MessageDlg 관련 찌꺼기가 쓸데없이 남아서 다음 재실행시 먹통된다)
+    Key:= 0;
+    // 물어보고 종료한다
+    ExitButtonClick(Sender);
+  end else
 
   // Config 화면이라면
   if (TabControl1.ActiveTab = TabItem_Config) then
@@ -152,15 +182,13 @@ begin
     end;
   end else
 
-  // Back 누르면 그냥 종료돼 버리는데, 종료할지 물어보고 종료한다
-  if (TabControl1.ActiveTab = TabItem_Main) then
+  // Usb Load 화면이라면
+  if (TabControl1.ActiveTab = TabItem_UsbLoad) then
   begin
-    // 일단 종료하지 말고 (여기서 안해주면 MessageDlg도 안뜨고 바로 종료돼 버리며
-    // MessageDlg 관련 찌꺼기가 쓸데없이 남아서 다음 재실행시 먹통된다)
+    // 종료하지 말고 Cancel 버튼 클릭한 것처럼 동작하라
     Key:= 0;
-    // 물어보고 종료한다
-    ExitButtonClick(Sender);
-  end;
+    TabControl1.ActiveTab:= TabItem_Config;
+  end else
 end;
 
 procedure TMainForm.LoadFromIniFile;
@@ -264,10 +292,42 @@ end;
 procedure TMainForm.GotoMainTab(Save: integer);
 begin
   // from Config
-  TabControl1.ActiveTab:= TabItem_Main;
+  // TabControl1.ActiveTab:= TabItem_Main;
+  ChangeTabAction1.ExecuteTarget(Self);
 
   // Save 눌렀을 경우 반영한다
-  if Save = 1 then LoadFromIniFile;
+  if Save = 1 then
+  begin
+    LoadFromIniFile;
+    ToastMessage('반영되었습니다.');
+  end;
+end;
+
+procedure TMainForm.ToastMessage(msg: string);
+begin
+  // Text를 반영하고 AutoSize로 변경된 ToastText.Width를 ToastRect.Width에 반영한다
+  ToastText.Text:= msg;
+  ToastRect.Width:= ToastText.Width + 48;
+
+  // 불투명도를 1로 해서 화면에 나타나게 한다
+  Layout_Toast.Opacity:= 1.0;
+  // 0.8초동안 보여주고 0.7초동안 서서히 사라짐
+  TAnimator.Create.AnimateFloatDelay(Layout_Toast, 'Opacity', 0.0, 0.7, 0.8);
+end;
+
+procedure TMainForm.ShowState(Running: boolean);
+begin
+  // 화면에 상태 표시
+  if Running
+  then StateLabel.Text:= 'Running...'
+  else StateLabel.Text:= 'Idle';
+
+  // 상태에 따라 버튼 활성화 결정
+  RunButton.Enabled:= not Running;
+  StopButton.Enabled:= Running;
+  ClearButton.Enabled:= not Running;
+  ConfigButton.Enabled:= not Running;
+  ExitButton.Enabled:= not Running;
 end;
 
 procedure TMainForm.RunButtonClick(Sender: TObject);
@@ -291,21 +351,7 @@ begin
 
   // 화면에 상태 표시
   ShowState(True);
-end;
-
-procedure TMainForm.ShowState(Running: boolean);
-begin
-  // 화면에 상태 표시
-  if Running
-  then StateLabel.Text:= 'Running...'
-  else StateLabel.Text:= 'Idle';
-
-  // 상태에 따라 버튼 활성화 결정
-  RunButton.Enabled:= not Running;
-  StopButton.Enabled:= Running;
-  ClearButton.Enabled:= not Running;
-  ConfigButton.Enabled:= not Running;
-  ExitButton.Enabled:= not Running;
+  ToastMessage('동작을 시작합니다');
 end;
 
 procedure TMainForm.StopButtonClick(Sender: TObject);
@@ -313,6 +359,7 @@ begin
   // Run 동작을 멈춘다
   Timer1.Enabled:= False;
   ShowState(False);
+  ToastMessage('동작을 중지합니다');
 end;
 
 procedure TMainForm.ClearButtonClick(Sender: TObject);
@@ -340,7 +387,8 @@ begin
   ConfigForm.LoadIniFile;
 
   // 설정 화면을 띄워준다
-  TabControl1.ActiveTab:= TabItem_Config;
+  // TabControl1.ActiveTab:= TabItem_Config;
+  ChangeTabAction2.ExecuteTarget(Self);
 end;
 
 procedure TMainForm.ExitButtonClick(Sender: TObject);

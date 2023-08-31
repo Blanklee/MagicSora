@@ -5,28 +5,37 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
-  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.StdCtrls;
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.StdCtrls,
+  System.Actions, FMX.ActnList, FMX.TabControl;
 
 type
   TConfigForm = class(TForm)
     Layout1: TLayout;
-    SaveButton: TButton;
+    ApplyButton: TButton;
     RevertButton: TButton;
     CancelButton: TButton;
     Memo1: TMemo;
+    LoadButton: TButton;
+    SaveButton: TButton;
+    ActionList1: TActionList;
+    ChangeTabAction1: TChangeTabAction;
+    ChangeTabAction2: TChangeTabAction;
     procedure FormCreate(Sender: TObject);
     procedure FormVirtualKeyboardShown(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
     procedure FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
-    procedure SaveButtonClick(Sender: TObject);
+    procedure ApplyButtonClick(Sender: TObject);
     procedure RevertButtonClick(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
+    procedure LoadButtonClick(Sender: TObject);
+    procedure SaveButtonClick(Sender: TObject);
   private
     { Private declarations }
-    // FKBBounds: TRectF;
+    FUsbFileName: string;
   public
     { Public declarations }
     KBVisible: boolean;
     procedure LoadIniFile;
+    procedure LoadUsbFile(AFileName: string);
   end;
 
 var
@@ -37,7 +46,7 @@ implementation
 
 {$R *.fmx}
 
-uses MainForm1, System.IOUtils, System.IniFiles;
+uses MainForm1, System.IOUtils, System.IniFiles, UsbLoadForm1;
 
 { TConfigForm }
 
@@ -45,13 +54,14 @@ procedure TConfigForm.FormCreate(Sender: TObject);
 begin
   // 변수 초기화
   KBVisible:= false;
+  FUsbFileName:= '';
 
   // 최초 1번째 실행시: Memo1에 있는 기본내용을 ini 파일로 한번 저장해 준다
   IniFileName:= System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath, 'MagicSora.ini');
   if not FileExists(IniFileName) then Memo1.Lines.SaveToFile(IniFileName);
 
   // IniFileName 출력해 본다
-  // ShowMessage('IniFileName = ' + FIniFileName);
+  // MainForm.ToastMessage('IniFileName = ' + FIniFileName);
   // Windows: C:\Users\blank\Documents
   // Android: /data/data/com.nawoo.MagicPoolMobile/files/MagicSora.ini
 end;
@@ -79,14 +89,6 @@ begin
 
   // 커서 위치로 자동 스크롤
   Memo1.SelStart:= Memo1.SelStart;
-
-  {
-  FKBBounds:= TRectF.Create(Bounds);
-  FKBBounds.TopLeft:= ScreenToClient(FKBBounds.TopLeft);
-  FKBBounds.BottomRight:= ScreenToClient(FKBBounds.BottomRight);
-  Memo1.Lines.Add('ShownF: ' + RectFToStr(FKBBounds));
-  // FKBBounds = 세로 (0, 605, 600, 936) / 가로 (0, 272, 961, 575)
-  }
 end;
 
 procedure TConfigForm.FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
@@ -98,26 +100,68 @@ begin
 
   // Memo의 세로 크기를 복원한다
   Memo1.Align:= TAlignLayout.Client;
-
-  {
-  FKBBounds:= TRectF.Create(Bounds);
-  FKBBounds.TopLeft:= ScreenToClient(FKBBounds.TopLeft);
-  FKBBounds.BottomRight:= ScreenToClient(FKBBounds.BottomRight);
-  Memo1.Lines.Add('HiddenF: ' + RectFToStr(FKBBounds));
-  // FKBBounds = 세로 (0, 911, 600, 936) / 가로 (0, 551, 961, 575)
-  }
 end;
 
 procedure TConfigForm.LoadIniFile;
 begin
   // Memo1.Lines.Clear;
   Memo1.Lines.LoadFromFile(IniFileName);
+
+  // 이제 USB로 Save는 할 수 없다
+  SaveButton.Enabled:= False;
+end;
+
+procedure TConfigForm.LoadUsbFile(AFileName: string);
+begin
+  // 파일이름은 저장해 두고
+  FUsbFileName:= AFileName;
+
+  // Memo로 파일내용을 읽어들인다
+  Memo1.Lines.LoadFromFile(AFileName);
+
+  // 이제 USB로 Save 할 수 있다
+  SaveButton.Enabled:= True;
+
+  // 화면에 안내문 출력
+  MainForm.ToastMessage('USB에서 설정을 읽어왔습니다.');
+end;
+
+procedure TConfigForm.LoadButtonClick(Sender: TObject);
+begin
+  // MainForm.TabControl1.ActiveTab:= MainForm.TabItem_UsbLoad;
+  ChangeTabAction2.ExecuteTarget(Self);
+
+  // USB로부터 ini파일 읽기 실행
+  UsbLoadForm.LaunchUsbFolder;
 end;
 
 procedure TConfigForm.SaveButtonClick(Sender: TObject);
 begin
+  // USB에 ini파일 저장
+  // 파일 이름은 아까 LoadUsbFile 함수에서 저장해 놓은것 사용
+  MessageDlg('USB 메모리에 현재 내용을 저장할까요 ?',
+  TMsgDlgType.mtConfirmation, mbOkCancel, 0,
+  procedure(const AResult: TModalResult)
+  begin
+    if (AResult = mrOk) then
+    begin
+      // 문제점 : Load 하지 않았는데 먼저 Save 하는 경우, 또는 파일이름이 아직 없으면 저장이 안돼야 함
+      if FUsbFileName = ''
+      then MainForm.ToastMessage('USB에서 아직 읽지 않았습니다.')
+      // 문제점 : 저장할 파일이름 선택할 수 있게 할것
+      // USB 메모리에 그대로 저장. 현재는 그냥 덮어쓴다.
+      else begin
+        Memo1.Lines.SaveToFile(FUsbFileName);
+        MainForm.ToastMessage('USB로 저장하였습니다.');
+      end;
+    end;
+  end);
+end;
+
+procedure TConfigForm.ApplyButtonClick(Sender: TObject);
+begin
   // Save => 물어보고 Goto Main
-  MessageDlg('Save and exit ?',
+  MessageDlg('Apply and exit ?',
     TMsgDlgType.mtConfirmation, mbOkCancel, 0,
     procedure(const AResult: TModalResult)
     begin
@@ -142,6 +186,7 @@ begin
       if (AResult = mrOk) then
       begin
         LoadIniFile;
+        MainForm.ToastMessage('원상복구 되었습니다.');
       end;
     end);
 end;

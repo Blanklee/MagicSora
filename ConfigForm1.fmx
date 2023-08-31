@@ -75,35 +75,77 @@ object ConfigForm: TConfigForm
       Viewport.Width = 491.000000000000000000
       Viewport.Height = 472.000000000000000000
     end
-    object SaveButton: TButton
+    object ApplyButton: TButton
+      Action = ChangeTabAction1
+      Enabled = True
+      ImageIndex = -1
       Position.X = 16.000000000000000000
-      Position.Y = 13.000000000000000000
+      Position.Y = 112.000000000000000000
       Size.Width = 105.000000000000000000
-      Size.Height = 44.000000000000000000
+      Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      Text = 'Save'
-      OnClick = SaveButtonClick
+      Text = 'Apply'
+      Visible = True
+      OnClick = ApplyButtonClick
     end
     object RevertButton: TButton
       Position.X = 16.000000000000000000
-      Position.Y = 61.000000000000000000
+      Position.Y = 160.000000000000000000
       Size.Width = 105.000000000000000000
-      Size.Height = 44.000000000000000000
+      Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
       Text = 'Revert'
       OnClick = RevertButtonClick
     end
     object CancelButton: TButton
+      Action = ChangeTabAction1
+      Enabled = True
+      ImageIndex = -1
       Position.X = 16.000000000000000000
-      Position.Y = 109.000000000000000000
+      Position.Y = 208.000000000000000000
       Size.Width = 105.000000000000000000
-      Size.Height = 44.000000000000000000
+      Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
       Text = 'Cancel'
+      Visible = True
       OnClick = CancelButtonClick
+    end
+    object LoadButton: TButton
+      Action = ChangeTabAction2
+      Enabled = True
+      ImageIndex = -1
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      Visible = True
+      OnClick = LoadButtonClick
+    end
+    object SaveButton: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      Text = 'USB Save'
+      OnClick = SaveButtonClick
+    end
+  end
+  object ActionList1: TActionList
+    Left = 64
+    Top = 304
+    object ChangeTabAction1: TChangeTabAction
+      Tab = MainForm.TabItem_Main
+    end
+    object ChangeTabAction2: TChangeTabAction
+      CustomText = 'USB Load'
+      Tab = MainForm.TabItem_UsbLoad
     end
   end
 end
